@@ -1,0 +1,230 @@
+body {
+    background-color: lightgray;
+}
+
+#mars {
+    margin: auto;
+    width: 1228px;
+}
+
+#marsHeaderContainer {
+    text-align: center;
+    border: 1px solid blue;
+    margin-bottom: 25px;
+    background-color: darkgray;
+    color: white;
+}
+
+#marsContainer {
+    border: 1px solid blue;
+    background-color: darkgray;
+    color: white;
+    
+}
+
+#marsLeftColumn, #marsMiddleColumn, #marsRightColumn {
+    float: left;
+    margin: 10px;
+    border: 1px solid black;
+    padding: 10px;
+    height: 100%;
+}
+
+#marsMiddleColumn {
+    width: 500px;
+}
+
+#marsLeftColumn {
+    width: 250px;
+}
+
+
+#marsRightColumn {
+    width: 350px;
+}
+
+hr {
+    background-color: #303030;
+    height: 3px;
+    width: 1300px;
+    border: none;
+}
+
+/*
+    Left Column Calculations
+
+            250px   --> (content width)
+             20px   --> (10px left margin, 10px right margin)
+             20px   --> (10px left padding, 10px right padding)
+              2px   --> (1px left border, 1px right border)
+    ________________________________________
+            292px   --> (physical width)
+
+
+
+    Middle Column Calculations
+
+            500px   --> (content width)
+             20px   --> (10px left margin, 10px right margin)
+             20px   --> (10px left padding, 10px right padding)
+              2px   --> (1px left border, 1px right border)
+        ________________
+            542px   --> (physical width)
+
+
+
+
+    Right Column Calculations
+
+            350px   --> (content width)
+             20px   --> (10px left margin, 10px right margin)
+             20px   --> (10px left padding, 10px right padding)
+              2px   --> (1px left border, 1px right border)
+        _____________
+            392px   --> (physical width)
+
+    
+
+
+    Mars Container Width
+
+            292px   --> (left column physical width)
+            542px   --> (middle column physical width)
+            392px   --> (right column physical width)
+        ___________
+            1226px  --> (container content width)
+               2px  --> (1px left border, 1px right border)
+        -----------
+            1228px  --> #mars content width
+
+*/
+
+
+
+
+#photoOfTheDayLeftColumn, #photoOfTheDayMiddleColumn, #photoOfTheDayRightColumn {
+    float: left;
+    margin: 10px;
+    border: 1px solid black;
+    padding: 10px;
+    height: 100%;
+}
+
+#photoOfTheDay {
+    margin: auto;
+    width: 1228px;
+}
+
+#photoOfTheDayHeaderContainer {
+    text-align: center;
+    border: 1px solid red;
+    margin-bottom: 25px;
+    background-color: darkgray;
+    color: white;
+}
+
+#photoOfTheDayContainer {
+    border: 1px solid red;
+    background-color: darkgray;
+    color: white;
+}
+
+#photoOfTheDayLeftColumn {
+    width: 250px;
+}
+
+#photoOfTheDayMiddleColumn {
+    width: 500px;
+}
+
+#photoOfTheDayRightColumn {
+    width: 350px;
+}
+
+.photoOfTheDayImage {
+    width: 500px;
+}
+
+
+
+.clearHack:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+
+
+/*  Slideshow CSS   */
+
+/* the following code was referenced using reference 3 */
+
+.slideshow {
+    position: relative;
+    margin: auto;
+}
+
+.slideshowImage {
+    display: block;
+    max-width: 500px;
+    max-height: 500px;
+    width: 500px;
+    height: auto;
+}
+
+.mySlides {
+    display: none;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: red;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+    background-color: lightgray;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+/* end of reference 3 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

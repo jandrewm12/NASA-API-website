@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<!--
+    Name: Jacob McIntosh 
+    Pawprint: jam6m4
+    Date: April 9, 2021
+    Challenge: AJAX S21
+
+
+
+    References: 
+        1. https://www.w3schools.com/html/html_youtube.asp
+        2. https://www.sitepoint.com/delay-sleep-pause-wait/
+        3. https://www.w3schools.com/howto/howto_js_slideshow_gallery.asp
+        4. https://en.wikipedia.org/wiki/Opportunity_(rover)
+-->
+
+<html lang="en">
+    <head>
+        <title>Jam6m4AJAX-S21</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="Jam6m4AJAXS21.css" type="text/css">
+        
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        
+    </head>
+    <body onload="getManifest()">
+        
+        <h3 id="projectsLink"><a>Back to Projects Page</a></h3>
+        
+        <div id="mars">
+            <div id="marsHeaderContainer">
+                <h2 id="marsHeader">Opportunity Rover</h2>
+            </div>
+            <div id="marsContainer" class="clearHack">
+                <div id="marsLeftColumn">
+                    <form>
+                        <label for="sol" id="solLabel">Martian Sol: </label><br>
+                        <input type="text" id="sol" name="sol" required><br>
+                        
+                        <br>
+                        
+                        <label for="camera" id="cameraLabel">Camera: </label><br>
+                        <select id="camera" name="camera">
+                            <option>Please select a SOL first.</option>
+                        </select><br>
+                        
+                        <br>
+                        
+                        <button type="button" onclick="getRoverContent()">Submit</button>
+                    </form>
+                </div>
+                <div id="marsMiddleColumn">
+                    
+                    
+<!--                    Image Gallery-->
+<!--                    the following code was referenced using reference 3-->
+                    
+                    <div class="slideshow">
+                        <div class="mySlides">
+                            <div class="numberText"></div>
+                        </div>
+                        
+                        <br class="tempBreak">
+                        <br class="tempBreak">
+                        <br class="tempBreak">
+                        <br class="tempBreak">
+                        <br class="tempBreak">
+                        
+                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                        <br>
+                    </div>
+                    
+<!--                    end of reference 3-->
+                    
+                    
+                    
+                    
+                </div>
+                <div id="marsRightColumn">
+                    <h3><u>Rover:</u> Opportunity</h3>
+                    
+                    <h4><u>Launch Date:</u> 6-7-2003</h4>
+                    <h4><u>Description:</u></h4>
+                    
+<!--                the following text was referenced from reference 4-->
+                    <p>Opportunity, also known as MER-B (Mars Exploration Rover – B) or MER-1, and nicknamed "Oppy", is a robotic rover that was active on Mars from 2004 until the middle of 2018. Opportunity was operational on Mars for 5110 sols (5250 days; 14 years, 136 days). Launched on July 7, 2003, as part of NASA's Mars Exploration Rover program, it landed in Meridiani Planum on January 25, 2004, three weeks after its twin Spirit (MER-A) touched down on the other side of the planet. With a planned 90-sol duration of activity (slightly less than 92.5 Earth days), Spirit functioned until it got stuck in 2009 and ceased communications in 2010, while Opportunity was able to stay operational for 5111 sols after landing, maintaining its power and key systems through continual recharging of its batteries using solar power, and hibernating during events such as dust storms to save power. This careful operation allowed Opportunity to operate for 57 times its designed lifespan, exceeding the initial plan by 14 years, 46 days (in Earth time). By June 10, 2018, when it last contacted NASA, the rover had traveled a distance of 45.16 kilometers (28.06 miles).</p>
+                    
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+        
+        <hr>
+        
+        
+        
+        
+        
+        <div id="photoOfTheDay">
+            <div id="photoOfTheDayHeaderContainer">
+                <h2 id="photoOfTheDayHeader">NASA Photo of the Day</h2>
+            </div>
+            <div id="photoOfTheDayContainer" class="clearHack">
+                <div id="photoOfTheDayLeftColumn">
+                    <form>
+                        <label for="date">Date: </label><br>
+                        <input type="date" id="date" name="date" required><br>
+                        
+                        <br>
+                        
+                        <button type="button" onclick="getPhotoOfTheDayContent()">Submit</button><br>
+                    </form>
+                </div>
+                <div id="photoOfTheDayMiddleColumn">
+                    <p></p>
+                </div>
+                <div id="photoOfTheDayRightColumn">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+        
+            var manifest;
+            var photosArray;
+            
+            
+            
+            
+            function getRoverContent(){
+                $(".mySlides").remove();
+                                
+                var sol = $("#sol").val();
+                var cam = $("#camera").val();
+                
+                var marsExplorer = $.get("https://api.nasa.gov/mars-photos/api/v1/rovers/opportunity/photos?sol=" + sol + "&camera=" + cam + "&api_key=wysSoyhveUD7VhdZmDJFAJkWZvAgyGf46YXszoKU", function(data){
+                    var photoNum = data.photos.length;
+                    
+                    $(".tempBreak").remove();
+                    
+                    var counter = 1;
+                    
+                    for(var i = 0; i < photoNum; i++){
+                        
+                        if(counter == 1) {
+                            // this is NOT utilizing inline CSS. I used the style="" to get a function in my JS to work.
+                            $(".slideshow").append(
+                            '<div class="mySlides" id="showOnLoad" style=""><div class="numberText">' + counter + " / " + photoNum + "</div><img src='" + data.photos[i]["img_src"] + "' class='slideshowImage' alt='Rover Photo " + counter + ' of ' + photoNum + ".'></div>");
+                            
+                        } else {
+                            $(".slideshow").append(
+                            '<div class="mySlides"><div class="numberText">' + counter + " / " + photoNum + "</div><img src='" + data.photos[i]["img_src"] + "' class='slideshowImage' alt='Rover Photo " + counter + ' of ' + photoNum + ".'></div>");
+                        }
+                        counter++;
+                    }
+                    
+                });
+                
+                $(".prev").hide();
+                $(".next").hide();
+                
+                $("#marsMiddleColumn").append("<p class='loading'>Loading...</p>");
+                $("#marsRightColumn").append("<p class='loading'>Loading...</p>");
+                
+                
+                
+                setTimeout(() => { 
+                    slideIndex = 1;
+                    showSlides(slideIndex); 
+                    $(".prev").show();
+                    $(".next").show();
+                    $(".loading").remove();
+                }, 2000);
+            }    
+            
+            function getPhotoOfTheDayContent(){                
+                // the following code was referenced from my ToDoList Project
+                $('#photoOfTheDayMiddleColumn').html("<p>Loading...</p>");
+                $('#photoOfTheDayRightColumn').html("<p>Loading...</p>");
+                
+                // the following line of code was referenced from reference 2
+                setTimeout(() => { console.log("Loading..."); }, 2000);
+                
+                var validDate = false;
+                
+                var currentDate = new Date();
+                var currentYear = currentDate.getFullYear();
+                var currentMonth = currentDate.getMonth() + 1;
+                var currentDay = currentDate.getDate();
+                
+                var currentMonthString = "";
+                var currentDayString = "";
+                
+                if(currentMonth.toString().length == 1){
+                    currentMonthString = "0" + currentMonth;
+                } else {
+                    currentMonthString = currentMonth;
+                }
+                
+                if(currentDay.toString().length == 1){
+                    currentDayString = "0" + currentDay;
+                } else {
+                    currentDayString = currentDay;
+                }
+                
+                currentDate = currentYear + "-" + currentMonthString + "-" + currentDayString;
+                
+                var date = $("#date").val();
+                
+                if(date && date <= currentDate){
+                    validDate = true;
+                } else {
+                    alert("Please enter a date that has already passed.");
+                }
+                // end of ToDoList reference
+                
+                if(validDate){
+                    var options;
+                    
+                    options = {
+                        "date": $("#date").val()
+                    };
+                    
+                    var getPhotoOfDay = $.get("https://api.nasa.gov/planetary/apod?api_key=wysSoyhveUD7VhdZmDJFAJkWZvAgyGf46YXszoKU", options, function(data){
+                    
+                        var imageString = "";
+                        
+                        if(data.media_type == 'video'){
+                            
+                            // the following code was referenced using reference 1
+                            // width and height are attributes here, not inline CSS
+                            imageString = "<iframe width='500' height='375' src='" + data.url + "'></iframe>";
+                            // end of reference 1
+                            
+                        } else {
+                            imageString = "<img src='" + data.url + "' class='photoOfTheDayImage' alt='NASA Photo of the Day'>";
+                        }
+                    
+                        $('#photoOfTheDayMiddleColumn').html(imageString);
+                    
+                        var description = "<h3><u>Title:</u> " + data.title + "</h3><h4><u>Description:</u></h4><p id='photoOfTheDayDescription'>" + data.explanation + "</p>";
+                    
+                        $('#photoOfTheDayRightColumn').html(description);
+                    })
+                    .fail(function(){
+                        alert("An error has occurred. NASA's API may not have data for the selected date. Please try again.");
+                    });
+                }
+            }
+            
+            function getManifest(){
+                $(".prev").hide();
+                $(".next").hide();
+                
+                $.getJSON("https://api.nasa.gov/mars-photos/api/v1/manifests/opportunity?api_key=wysSoyhveUD7VhdZmDJFAJkWZvAgyGf46YXszoKU", function(data){
+                    
+                    manifest = data;
+                    photosArray = data.photo_manifest.photos;
+                });
+            }
+            
+            $("#sol").change(function(){
+                var sol = $("#sol").val();
+                
+                if(sol > manifest.photo_manifest.max_sol){
+                    alert("No data for sols past " + manifest.photo_manifest.max_sol + ". Please try another sol.");
+                } else if (sol < 1) {
+                    alert("Please enter a sol greater than or equal to 1.");
+                } else {
+                    var counter = 0;
+                    var checkedAll = false;
+                    
+                    for(var i = 0; i < photosArray.length; i++){
+                        
+                        if(counter == photosArray.length-1){
+                            checkedAll = true;
+                        }
+                        
+                        if(sol == photosArray[i]["sol"]){
+                            counter = 0;
+                            checkedAll = false;
+                            $("#camera").empty();
+                            for(var j = 0; j < photosArray[i]["cameras"].length; j++){
+                                
+                                var roverCamera = photosArray[i]["cameras"][j];
+                                
+                                $("#camera").append("<option value='" + roverCamera.toLowerCase() + "'>" + roverCamera + "</option>");
+                            }
+                        } else if(checkedAll == true) {
+                            alert("No image data exists for this sol. Please try a different sol.");
+                            $("#camera").empty();
+                            $("#camera").append('<option>Please select a SOL first.</option>');
+                            break;
+                        } else {
+                            counter++;
+                        }
+                    }
+                }
+            });
+        </script>
+        <script src="Jam6m4AJAXS21.js"></script>
+    </body>
+</html>
